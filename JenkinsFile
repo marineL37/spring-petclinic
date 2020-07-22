@@ -12,8 +12,8 @@ pipeline {
             steps {
                 sh 'rm -rf /var/www/target/' 
                 copyArtifacts(projectName: 'petclinic-freestyle', selector: lastSuccessful(), filter: 'target/*.jar', target: '/var/www',  
-                fingerprintArtifacts: false);
-                sh 'sudo chmod 777 mv /var/www/target/spring-petclinic-*.jar /var/www/target/spring-petclinic-prod.jar'
+                fingerprintArtifacts: false, flatten: true);
+                sh 'mv /var/www/target/spring-petclinic-*.jar /var/www/target/spring-petclinic-prod.jar'
                 sh 'sudo systemctl restart petclinic'
             }
         }
