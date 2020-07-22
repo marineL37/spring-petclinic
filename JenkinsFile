@@ -11,7 +11,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'rm -rf /var/www/target/' 
-                copyArtifacts(projectName: 'petclinic-freestyle', selector: lastSuccessful(), target: '/var/www', fingerprintArtifacts: true);
+                copyArtifacts(projectName: 'petclinic-freestyle', selector: lastSuccessful(), target: '/var/www', filter: 'target/*.jar', fingerprintArtifacts: true);
                 sh 'mv /var/www/target/spring-petclinic-*.jar /var/www/target/spring-petclinic-prod.jar'
                 sh 'sudo systemctl restart petclinic'
             }
